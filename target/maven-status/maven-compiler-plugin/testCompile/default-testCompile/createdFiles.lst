@@ -1,0 +1,17 @@
+ski\alto\cockpit\server\repository\AdminUsersPreviewDAOTest.class
+ski\alto\cockpit\server\AltoskiAdminCockpitServerApplicationTests.class
+ski\alto\cockpit\server\repository\UserDAOTest.class
+ski\alto\cockpit\server\repository\AdminCockpitUsersRepositoryTest.class
+ski\alto\cockpit\server\repository\CockpitResortReportsRepositoryTest.class
+ski\alto\cockpit\server\repository\TransactionsDAOTest.class
+ski\alto\cockpit\server\repository\GateUsageDAOTest.class
+ski\alto\cockpit\server\repository\UserReportDAOTest.class
+ski\alto\cockpit\server\repository\ResortsRepositoryTest.class
+ski\alto\cockpit\server\repository\SmartCardUsagesRepositoryTest.class
+ski\alto\cockpit\server\repository\UpdateDTACaresdStatusRepositoryTest.class
+ski\alto\cockpit\server\service\AdminCockpitUsersServiceTest.class
+ski\alto\cockpit\server\repository\ActivityDAOTest.class
+ski\alto\cockpit\server\repository\DTACardDAOTest.class
+ski\alto\cockpit\server\repository\ProductDAOTest.class
+ski\alto\cockpit\server\service\AmazonS3ServiceTest.class
+ski\alto\cockpit\server\repository\SmartCardUsagesDAOTest.class
