@@ -258,6 +258,106 @@ public class UserDAO {
 			);
 		}
     	
+    	
+    	
+    	
+    	for (UserDTO userDTO : users) {
+    		userDTO.setOwned_cards(getOwnedCards(userDTO.getId()));
+		}
+    	
+    	for (UserDTO userDTO : users) {
+    		userDTO.setAssigned_cards(getAssignedCards(userDTO.getId()));
+		}
+
+		for (UserDTO userDTO : users) {
+			userDTO.setPromo_code_redemptions(getPromoCodeRedemptions(userDTO.getId()));
+		}
+
+		return users;
+    }
+    
+    public List<UserDTO> getUserByDTO(String dto, String ownership) {
+
+		List<UserDTO> users = null;
+
+    	if (ownership != null) {
+			users =  jdbcTemplate.query(
+					"select u.id id, u.first_name first_name, u.last_name last_name, u.email email,\r\n"
+							+ " u.phone phone, u.address1 address1, u.address2 address2, u.city city, \r\n"
+							+ "u.country country, u.county_or_state county_or_state, u.postal_code postal_code, \r\n"
+							+ "(u.card_id IS NOT NULL and u.card_id <> '') credit_card_registered, \r\n"
+							+ "CASE \r\n"
+							+ "	when (select TO_CHAR(u.birth_date,'YYYY-MM-DD')) != '' then (select TO_CHAR(u.birth_date,'YYYY-MM-DD')) \r\n"
+							+ "	when (select TO_CHAR(sc.birth_date,'YYYY-MM-DD')) != '' then (select TO_CHAR(sc.birth_date,'YYYY-MM-DD')) \r\n"
+							+ "END birth_date, \r\n"
+							+ "u.role user_role, \r\n"
+							+ "u.ownership ownership \r\n"
+							+ "from smart_cards sc right outer join users u on u.id = sc.user_id\r\n"
+							+ "and LOWER(sc.first_name) = LOWER(u.first_name) and LOWER(sc.last_name) = LOWER(u.last_name)\r\n"
+							+ "where LOWER(sc.card_number) LIKE LOWER('%'||?||'%')"
+							+ "and u.ownership=?",
+					(rs, rowNum) -> new UserDTO(
+							rs.getInt("id"),
+							rs.getString("first_name"),
+							rs.getString("last_name"),
+							rs.getString("birth_date"),
+							rs.getString("email"),
+							rs.getString("phone"),
+							rs.getString("address1"),
+							rs.getString("address2"),
+							rs.getString("city"),
+							rs.getString("country"),
+							rs.getString("county_or_state"),
+							rs.getString("postal_code"),
+							null,
+							null,
+							rs.getBoolean("credit_card_registered"),
+							null,
+							rs.getString("user_role"),
+							rs.getString("ownership")),
+					dto, ownership
+			);
+		} else {
+			users =  jdbcTemplate.query(
+					"select u.id id, u.first_name first_name, u.last_name last_name, u.email email,\r\n"
+							+ " u.phone phone, u.address1 address1, u.address2 address2, u.city city, \r\n"
+							+ "u.country country, u.county_or_state county_or_state, u.postal_code postal_code, \r\n"
+							+ "(u.card_id IS NOT NULL and u.card_id <> '') credit_card_registered, \r\n"
+							+ "CASE \r\n"
+							+ "	when (select TO_CHAR(u.birth_date,'YYYY-MM-DD')) != '' then (select TO_CHAR(u.birth_date,'YYYY-MM-DD')) \r\n"
+							+ "	when (select TO_CHAR(sc.birth_date,'YYYY-MM-DD')) != '' then (select TO_CHAR(sc.birth_date,'YYYY-MM-DD')) \r\n"
+							+ "END birth_date, \r\n"
+							+ "u.role user_role, \r\n"
+							+ "u.ownership ownership \r\n"
+							+ "from smart_cards sc right outer join users u on u.id = sc.user_id\r\n"
+							+ "and LOWER(sc.first_name) = LOWER(u.first_name) and LOWER(sc.last_name) = LOWER(u.last_name)\r\n"
+							+ "where LOWER(sc.card_number) LIKE LOWER('%'||?||'%')",
+					(rs, rowNum) -> new UserDTO(
+							rs.getInt("id"),
+							rs.getString("first_name"),
+							rs.getString("last_name"),
+							rs.getString("birth_date"),
+							rs.getString("email"),
+							rs.getString("phone"),
+							rs.getString("address1"),
+							rs.getString("address2"),
+							rs.getString("city"),
+							rs.getString("country"),
+							rs.getString("county_or_state"),
+							rs.getString("postal_code"),
+							null,
+							null,
+							rs.getBoolean("credit_card_registered"),
+							null,
+							rs.getString("user_role"),
+							rs.getString("ownership")),
+					dto
+			);
+		}
+    	
+    	
+    	
+    	
     	for (UserDTO userDTO : users) {
     		userDTO.setOwned_cards(getOwnedCards(userDTO.getId()));
 		}

@@ -32,32 +32,50 @@ public class UsersController {
     @GetMapping("/users")
     public List<UserDTO> getUsers(@RequestParam Map<String,String> requestParams) {
 
-    	String search_input = requestParams.get("search_input");
-    	boolean search_by_first_name = Boolean.parseBoolean(requestParams.get("search_by_first_name"));
-		boolean search_by_last_name = Boolean.parseBoolean(requestParams.get("search_by_last_name"));
-		boolean search_by_email = Boolean.parseBoolean(requestParams.get("search_by_email"));
-		boolean search_by_dob = Boolean.parseBoolean(requestParams.get("search_by_dob"));
-		String ownership = OwnershipUtil.parseOwnership(requestParams.get("ownership"));
-		
-		logger.info(search_input);
-		logger.info(String.valueOf(search_by_first_name));
-		logger.info(String.valueOf(search_by_last_name));
-		logger.info(String.valueOf(search_by_email));
-        logger.info(String.valueOf(search_by_dob));
-        logger.info(String.valueOf(ownership));
-
-		
+    	
+    	String search_by_dto_str = requestParams.get("search_by_dto");
+    	logger.info("search_by_dto_str = " + search_by_dto_str);
+    	boolean search_by_dto = false;
+    	
         boolean result = false;
         List<UserDTO> users = new ArrayList<>();
         Set<UserDTO> usersSet = new LinkedHashSet<>();
-        if(search_by_first_name)
-            usersSet.addAll(userDAO.getUserByFirstName(search_input, ownership));
-        if(search_by_last_name)
-            usersSet.addAll(userDAO.getUserByLastName(search_input, ownership));
-        if(search_by_email)
-            usersSet.addAll(userDAO.getUserByEmail(search_input, ownership));
-        if(search_by_dob)
-            usersSet.addAll(userDAO.getUserByDOB(search_input, ownership));
+        String search_input = requestParams.get("search_input");
+        String ownership = OwnershipUtil.parseOwnership(requestParams.get("ownership"));
+    	if(search_by_dto_str != null) {
+    		search_by_dto = Boolean.parseBoolean(search_by_dto_str);
+    		logger.info("search_by_dto = " + String.valueOf(search_by_dto));
+    	}
+    	
+    	if(search_by_dto) {
+    		usersSet.addAll(userDAO.getUserByDTO(search_input, ownership));
+    	}else {
+        	
+        	boolean search_by_first_name = Boolean.parseBoolean(requestParams.get("search_by_first_name"));
+    		boolean search_by_last_name = Boolean.parseBoolean(requestParams.get("search_by_last_name"));
+    		boolean search_by_email = Boolean.parseBoolean(requestParams.get("search_by_email"));
+    		boolean search_by_dob = Boolean.parseBoolean(requestParams.get("search_by_dob"));
+    		
+    		
+    		logger.info(search_input);
+    		logger.info(String.valueOf(search_by_first_name));
+    		logger.info(String.valueOf(search_by_last_name));
+    		logger.info(String.valueOf(search_by_email));
+            logger.info(String.valueOf(search_by_dob));
+            logger.info(String.valueOf(ownership));
+
+    		
+
+            if(search_by_first_name)
+                usersSet.addAll(userDAO.getUserByFirstName(search_input, ownership));
+            if(search_by_last_name)
+                usersSet.addAll(userDAO.getUserByLastName(search_input, ownership));
+            if(search_by_email)
+                usersSet.addAll(userDAO.getUserByEmail(search_input, ownership));
+            if(search_by_dob)
+                usersSet.addAll(userDAO.getUserByDOB(search_input, ownership));
+    	}
+
 
         users.addAll(usersSet);
         return users;
