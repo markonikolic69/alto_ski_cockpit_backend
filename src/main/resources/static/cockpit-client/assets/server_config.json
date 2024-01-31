@@ -2,7 +2,7 @@
 	"cockpit_server_application_name":"altoski_admin_cockpit_server",
 	"cockpitHttpPrefix":"http",
 	"rubyHttpPrefix":"https",
-	"cockpitIP":"65.21.206.110",
+	"cockpitIP":"skiclubgb-cockpit-54385e0a75d2.herokuapp.com",
 	"rubyIP":"api.alto.ski",
 	"cockpitPort":"9080",
 	"ownership":"SKICLUB_GB"
