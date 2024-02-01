@@ -15,7 +15,7 @@ public class UpdateDTACardStatusController {
     UpdateDTACardStatusRepository updateCardStatusRepository;
 
 //    @CrossOrigin(origins = "http://94.127.4.240:4200")	//	SERVER CONFIG
-    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081"})
+    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com"})
     @PostMapping("/change_card_status")
     public Integer updateDTACardStatus(@RequestBody DTACardStatus request) {
 
