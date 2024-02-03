@@ -28,7 +28,7 @@ public class UsersController {
     UserDAO userDAO;
 
 //    @CrossOrigin(origins = "http://94.127.4.240:4200")	//	SERVER CONFIG
-    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com"})
+    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski"})
     @GetMapping("/users")
     public List<UserDTO> getUsers(@RequestParam Map<String,String> requestParams) {
 
