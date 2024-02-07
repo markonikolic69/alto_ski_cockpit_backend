@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.alto.ski</groupId>
 	<artifactId>altoski_admin_cockpit_server</artifactId>
-	<version>0.1.2-SNAPSHOT</version>
+	<version>0.1.3-SNAPSHOT</version>
 	<name>altoski_admin_cockpit_server</name>
 	<description>Alto Ski Admin Server</description>
 	<properties>
