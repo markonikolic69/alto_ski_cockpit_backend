@@ -50,11 +50,15 @@ public class ActivityController {
     	
     	String today = requestParams.get("today");
     	logger.info(today);
-    	Integer resort_id = Integer.parseInt(requestParams.get("resort_id"));
+    	String resort_id_str = requestParams.get("resort_id").replaceAll("\"", "").trim();
+
+    	Integer resort_id = Integer.parseInt(resort_id_str);
     	logger.info(String.valueOf(resort_id));
 		String ownership = OwnershipUtil.parseOwnership(requestParams.get("ownership"));
 		logger.info(String.valueOf(resort_id));
     	
     	return activityDAO.getAllDTACardActivitiesForResortIdForToday(today, resort_id, ownership);
     }
+    
+    
 }
