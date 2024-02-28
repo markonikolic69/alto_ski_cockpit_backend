@@ -293,7 +293,7 @@ public class UserDAO {
 							+ "u.role user_role, \r\n"
 							+ "u.ownership ownership \r\n"
 							+ "from smart_cards sc right outer join users u on u.id = sc.user_id\r\n"
-							+ "and LOWER(sc.first_name) = LOWER(u.first_name) and LOWER(sc.last_name) = LOWER(u.last_name)\r\n"
+							//+ "and LOWER(sc.first_name) = LOWER(u.first_name) and LOWER(sc.last_name) = LOWER(u.last_name)\r\n"
 							+ "where LOWER(sc.card_number) LIKE LOWER('%'||?||'%')"
 							+ "and u.ownership=?",
 					(rs, rowNum) -> new UserDTO(
@@ -330,7 +330,7 @@ public class UserDAO {
 							+ "u.role user_role, \r\n"
 							+ "u.ownership ownership \r\n"
 							+ "from smart_cards sc right outer join users u on u.id = sc.user_id\r\n"
-							+ "and LOWER(sc.first_name) = LOWER(u.first_name) and LOWER(sc.last_name) = LOWER(u.last_name)\r\n"
+							//+ "and LOWER(sc.first_name) = LOWER(u.first_name) and LOWER(sc.last_name) = LOWER(u.last_name)\r\n"
 							+ "where LOWER(sc.card_number) LIKE LOWER('%'||?||'%')",
 					(rs, rowNum) -> new UserDTO(
 							rs.getInt("id"),
