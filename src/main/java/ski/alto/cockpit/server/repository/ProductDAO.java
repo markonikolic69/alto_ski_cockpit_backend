@@ -402,7 +402,8 @@ public class ProductDAO {
 								}
 								
 								previous_ticketId = ticketId;
-							}else {
+							}
+							//else {
 								CategoryWithPriceDTO new_ticket = new CategoryWithPriceDTO(
 										rs.getInt("resort_category_id"),
 										getJsonValue(rs.getString("resort_category_name"), "en"),
@@ -419,7 +420,7 @@ public class ProductDAO {
 								);
 								logger.info("add category =" + new_ticket.getCategoryName());
 								product.addCategory(new_ticket);
-							}
+							//}
 
 
 						} while (rs.next());
