@@ -207,7 +207,7 @@ public class ProductDAO {
 				resortId
 		);
 		// sorting by english title
-		Collections.sort(categories, Comparator.comparing(CategoryWithPriceDTO::getCategoryName));
+		//Collections.sort(categories, Comparator.comparing(CategoryWithPriceDTO::getCategoryName));
 		return categories;
 	}
 
