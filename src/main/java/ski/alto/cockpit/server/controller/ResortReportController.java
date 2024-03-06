@@ -39,27 +39,27 @@ public class ResortReportController {
 
     @PostMapping("/resort-report")
     @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski"}, methods = {RequestMethod.POST, RequestMethod.OPTIONS})
-    public List<ResortReportDTO> getResortReport(@RequestBody ResortReportRequest request) {
+    public List<ResortReportDTO> getResortReport(@RequestBody ResortReportRequest request, @RequestParam String ownership) {
 
-        return resortReportParserService.getResortReportList(request.getResortName(), NUMBER_OF_MONTHS_TO_DISPLAY);
+        return resortReportParserService.getResortReportList(request.getResortName(), NUMBER_OF_MONTHS_TO_DISPLAY, ownership);
     }
 
     @PostMapping("/resort-report-details")
     @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski"}, methods = {RequestMethod.POST, RequestMethod.OPTIONS})
-    public List<ResortReportDTO> getResortReportDetails(@RequestBody ResortReportRequest request) {
+    public List<ResortReportDTO> getResortReportDetails(@RequestBody ResortReportRequest request, @RequestParam String ownership) {
 
-        return resortReportParserService.getResortReportList(request.getResortName(), NUMBER_OF_MONTHS_TO_DISPLAY);
+        return resortReportParserService.getResortReportList(request.getResortName(), NUMBER_OF_MONTHS_TO_DISPLAY, ownership);
     }
 
     @PostMapping("/parse-resort-reports")
-    public void parseResortReports(@RequestBody ParseResortReportRequest request) {
-        resortReportParserService.parseS3ReportsByResortName(request.getResortName(), request.getStartDate());
+    public void parseResortReports(@RequestBody ParseResortReportRequest request, @RequestParam String ownership) {
+        resortReportParserService.parseS3ReportsByResortName(request.getResortName(), request.getStartDate(), ownership);
         logger.info("Finisher reports parsing for resort " + request.getResortName());
     }
 
     @PostMapping("/parse-all-resort-reports")
-    public void parseAllResortReports(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate) {
-        resortReportParserService.parseS3ReportsAllResorts(startDate);
+    public void parseAllResortReports(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate, @RequestParam String ownership) {
+        resortReportParserService.parseS3ReportsAllResorts(startDate, ownership);
         logger.info("Finisher reports parsing for all resort");
     }
 

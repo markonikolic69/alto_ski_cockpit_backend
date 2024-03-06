@@ -71,28 +71,28 @@ public class ResortReportParserService {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    public void parseS3ReportsAllResorts(LocalDate startDate) {
+    public void parseS3ReportsAllResorts(LocalDate startDate, String ownership) {
 
         List<Resorts> resorts = resortsRepository.findAll();
         for (Resorts resort: resorts) {
             logger.info("Starting reports parsing for resort " + resort.getName() + " starting from " + startDate);
-            parseS3Report(resort, startDate);
+            parseS3Report(resort, startDate, ownership);
             logger.info("Finished reports parsing for resort " + resort.getName());
         }
     }
 
-    public void parseS3ReportsByResortName(String resortName, LocalDate startDate) {
+    public void parseS3ReportsByResortName(String resortName, LocalDate startDate, String ownership) {
         List<Resorts> resorts = resortsRepository.findByName(resortName);
         if (resorts != null && resorts.size() > 0) {
-            parseS3Report(resorts.get(0), startDate);
+            parseS3Report(resorts.get(0), startDate, ownership);
         }
     }
 
-    public void parseS3Report(Resorts resort, LocalDate startDate) {
-        parseS3Report(resort, startDate, false);
+    public void parseS3Report(Resorts resort, LocalDate startDate, String ownership) {
+        parseS3Report(resort, startDate, false, ownership);
     }
 
-    public void parseS3Report(Resorts resort, LocalDate startDate, boolean parseSingleMonth) {
+    public void parseS3Report(Resorts resort, LocalDate startDate, boolean parseSingleMonth, String ownership) {
 
         LocalDate parsingLimitDate = LocalDate.now().withDayOfMonth(1);
         if (parseSingleMonth) {
@@ -106,7 +106,7 @@ public class ResortReportParserService {
             try {
                 InputStream is = amazonS3Service.getAmazonS3ReportStream(resort.getName(),
                         startDate.withDayOfMonth(1),
-                        startDate.with(lastDayOfMonth()));
+                        startDate.with(lastDayOfMonth()), ownership);
 
                 if (is != null) {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -163,7 +163,8 @@ public class ResortReportParserService {
         }
     }
 
-    public List<CockpitResortReportDetailsDTO> parseS3ReportDetails(Resorts resort, String resortName, String fileName) {
+    public List<CockpitResortReportDetailsDTO> parseS3ReportDetails(Resorts resort, String resortName, String fileName
+    		, String ownership) {
 
         logger.info("Parsing report details for resort " + resort.getName());
 
@@ -172,7 +173,7 @@ public class ResortReportParserService {
         String fileKey = AmazonUtil.getReportFileKey(resortName, fileName);
 
         try {
-            InputStream is = amazonS3Service.getAmazonS3ReportStream(fileName, fileKey);
+            InputStream is = amazonS3Service.getAmazonS3ReportStream(fileName, fileKey, ownership);
 
             if (is != null) {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -220,7 +221,7 @@ public class ResortReportParserService {
         return result;
     }
 
-    public List<ResortReportDTO> getResortReportList(String resortName, Integer numberOfMonthsToDisplay) {
+    public List<ResortReportDTO> getResortReportList(String resortName, Integer numberOfMonthsToDisplay, String ownership) {
 
         List<ResortReportDTO> result = new ArrayList<>();
 
@@ -240,7 +241,7 @@ public class ResortReportParserService {
                 if (resortReports == null ||
                         resortReports.size() == 0) {
                     // reports were not parsed, parsing now
-                    parseS3Report(resort, now.withDayOfMonth(1), true);
+                    parseS3Report(resort, now.withDayOfMonth(1), true, ownership);
                     //try again
                     resortReports = cockpitResortReportsRepository.findByResortIdAndTransactionDateBetween(
                             resort.getId(),
@@ -262,7 +263,7 @@ public class ResortReportParserService {
                         amazonS3Service.getAmazonS3XlsxReportUrl(
                                 resortName,
                                 now.withDayOfMonth(1),
-                                now.with(lastDayOfMonth())),
+                                now.with(lastDayOfMonth()), ownership),
                         amazonS3Service.getAmazonS3InvoiceUrl(
                                 resortName,
                                 now.withDayOfMonth(1)),

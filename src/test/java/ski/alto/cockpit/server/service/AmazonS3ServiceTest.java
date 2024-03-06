@@ -25,7 +25,7 @@ class AmazonS3ServiceTest {
     void getAmazonS3ReportUrl() {
         String url = amazonS3Service.getAmazonS3ReportUrl("Madonna di Campiglio",
                 LocalDate.parse("2021-12-01"),
-                LocalDate.parse("2021-12-31"));
+                LocalDate.parse("2021-12-31"), "SKICLUB_GB");
         logger.info(url);
     }
 

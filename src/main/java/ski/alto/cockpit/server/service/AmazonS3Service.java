@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ski.alto.cockpit.server.utility.AmazonUtil;
+import ski.alto.cockpit.server.utility.OwnershipUtil;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -30,10 +31,11 @@ public class AmazonS3Service {
 
     private static final String reportsBucket = "resort-reports";
     private static final String invoiceBucket = "alto-invoices";
+    private static final String skiClubreportsBucket = "resort-reports-skiclub";
 
     private final AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion(Regions.EU_WEST_2).build();
 
-    public String getAmazonS3ReportUrl(String resortName, LocalDate from, LocalDate to) {
+    public String getAmazonS3ReportUrl(String resortName, LocalDate from, LocalDate to, String ownership) {
 
         String result = null;
 
@@ -41,7 +43,7 @@ public class AmazonS3Service {
             String fileName = AmazonUtil.getReportFileName(resortName, from, to);
             String fileKey = AmazonUtil.getReportFileKey(resortName, fileName);
 
-            result = getAmazonS3Url(fileKey, fileName, reportsBucket);
+            result = getAmazonS3Url(fileKey, fileName, getReportBucket(ownership));
 
         } catch(Exception e) {
             e.printStackTrace();
@@ -51,7 +53,7 @@ public class AmazonS3Service {
         return result;
     }
 
-    public String getAmazonS3XlsxReportUrl(String resortName, LocalDate from, LocalDate to) {
+    public String getAmazonS3XlsxReportUrl(String resortName, LocalDate from, LocalDate to, String ownership) {
 
         String result = null;
 
@@ -59,7 +61,7 @@ public class AmazonS3Service {
             String fileName = AmazonUtil.getReportXlsxFileName(resortName, from, to);
             String fileKey = AmazonUtil.getReportXlsxFileKey(resortName, fileName, from);
 
-            result = getAmazonS3Url(fileKey, fileName, reportsBucket);
+            result = getAmazonS3Url(fileKey, fileName, getReportBucket(ownership));
 
         } catch(Exception e) {
             e.printStackTrace();
@@ -118,7 +120,7 @@ public class AmazonS3Service {
         return result;
     }
 
-    public InputStream getAmazonS3ReportStream(String resortName, LocalDate from, LocalDate to) {
+    public InputStream getAmazonS3ReportStream(String resortName, LocalDate from, LocalDate to, String ownership) {
 
         InputStream result = null;
 
@@ -126,7 +128,7 @@ public class AmazonS3Service {
             String fileName = AmazonUtil.getReportFileName(resortName, from, to);
             String fileKey = AmazonUtil.getReportFileKey(resortName, fileName);
 
-            result = getAmazonS3Stream(fileKey, fileName, reportsBucket);
+            result = getAmazonS3Stream(fileKey, fileName, getReportBucket(ownership));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -136,12 +138,12 @@ public class AmazonS3Service {
         return result;
     }
 
-    public InputStream getAmazonS3ReportStream(String fileName, String fileKey) {
+    public InputStream getAmazonS3ReportStream(String fileName, String fileKey, String ownership) {
 
         InputStream result = null;
 
         try {
-            result = getAmazonS3Stream(fileKey, fileName, reportsBucket);
+            result = getAmazonS3Stream(fileKey, fileName, getReportBucket(ownership));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -161,5 +163,15 @@ public class AmazonS3Service {
         }
 
         return result;
+    }
+    
+    private String getReportBucket(String ownership) {
+    	if( OwnershipUtil.parseOwnership(ownership) == null ) {
+    		logger.info("S3 bucket name is : " + reportsBucket);
+    		return reportsBucket;
+    	} else {
+    		logger.info("S3 bucket name is : " + skiClubreportsBucket);
+    		return skiClubreportsBucket;
+    	}
     }
 }
