@@ -20,6 +20,9 @@ import java.util.*;
 
 @Component
 public class ProductDAO {
+	
+	
+	private static final int MADONNA_RESORT_ID = 40;
 
 	Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -155,11 +158,39 @@ public class ProductDAO {
 	public List<CategoryWithPriceDTO> getSeasonsCategories(Integer resortId) {
 
 		List<CategoryWithPriceDTO> categories = new ArrayList<>();
+		
+		String query_stari = resortId.intValue() == MADONNA_RESORT_ID ?
+				
+				"select id, display_name from resort_categories" +
+				" where resort_id = ? and deleted_at is null and name not like('SA%') " +
+				" order by display_name"
+				
+				: "select id, display_name from resort_categories" +
+				" where resort_id = ? and deleted_at is null" +
+				" order by display_name";
+		
+		String query_novi = "select distinct rc.id , rc.display_name" +
+				" from resort_ticket_prices rtp" +
+				" JOIN resort_seasons rs on rtp.season_id = rs.id" +
+				" JOIN resort_categories rc on rtp.category_id = rc.id" +
+				" JOIN resort_tickets rt on rtp.ticket_id = rt.id" +
+				" JOIN resort_ticket_groups rtg on rtg.id = rt.group_id" +
+				" where rs.resort_id = ?";
+		
+//		 select distinct rc.id , rc.display_name
+//		 from resort_ticket_prices rtp 
+//		 JOIN resort_seasons rs on rtp.season_id = rs.id
+//		 JOIN resort_categories rc on rtp.category_id = rc.id
+//		 JOIN resort_tickets rt on rtp.ticket_id = rt.id 
+//		 JOIN resort_ticket_groups rtg on rtg.id = rt.group_id
+//		 where rs.resort_id = 40
 
 		jdbcTemplate.query(
-				"select id, display_name from resort_categories" +
-				" where resort_id = ? and deleted_at is null" +
-				" order by display_name",
+//				"select id, display_name from resort_categories" +
+//				" where resort_id = ? and deleted_at is null" +
+//				" order by display_name"
+				query_stari
+				,
 				new RowCallbackHandler() {
 					@Override
 					public void processRow(ResultSet rs) throws SQLException {
@@ -180,14 +211,137 @@ public class ProductDAO {
 		return categories;
 	}
 
+//	public List<ProductWithCategoryDTO> getProductsBySeasonId(Integer seasonId, List<CategoryWithPriceDTO> categories) {
+//
+//		logger.info("getProductsBySeasonId called for seasonId=" + seasonId);
+//
+//		List<ProductWithCategoryDTO> products = new ArrayList<>();
+//
+//		jdbcTemplate.query(
+//				"select list_price_cents, list_price_currency, rs.id as resort_season_id, rs.display_name as resort_season_name," +
+//						" rc.id as resort_category_id, rc.display_name as resort_category_name," +
+//						" rt.id as resort_ticket_id, rt.display_name as resort_ticket_name," +
+//						" rtg.name as resort_ticket_group_name," +
+//							" supplement_days, supplement_amount_cents, supplement_amount_currency " +
+//						" from resort_ticket_prices rtp" +
+//						" JOIN resort_seasons rs on rtp.season_id = rs.id" +
+//						" JOIN resort_categories rc on rtp.category_id = rc.id" +
+//						" JOIN resort_tickets rt on rtp.ticket_id = rt.id" +
+//						" JOIN resort_ticket_groups rtg on rtg.id = rt.group_id" +
+//						" where rs.id = ? and rt.deleted_at is NULL " +
+//						" order by resort_season_id, resort_ticket_id, resort_category_name;",
+//				new RowCallbackHandler() {
+//					@Override
+//					public void processRow(ResultSet rs) throws SQLException {
+//						do {
+//							Integer ticketId = rs.getInt("resort_ticket_id");
+//							Integer currentCategoryId = rs.getInt("resort_category_id");
+//							
+//
+//							if (products.isEmpty() || !products.get(products.size() - 1).getTicketId().equals(ticketId)) {
+//
+//								// create a list of empty categories
+//								List<CategoryWithPriceDTO> newCategories = new ArrayList<>();
+//
+//								for (int i = 0; i < categories.size(); i++) {
+//									if (categories.get(i).getCategoryId() == currentCategoryId) {
+//										newCategories.add(new CategoryWithPriceDTO(
+//												rs.getInt("resort_category_id"),
+//												getJsonValue(rs.getString("resort_category_name"), "en"),
+//												new StringBuilder()
+//														.append(rs.getInt("list_price_cents") / 100.00)
+//														.append(rs.getString("list_price_currency"))
+//														.toString(),
+//												rs.getInt("supplement_amount_cents") > 0 ?
+//														new StringBuilder()
+//																.append((rs.getInt("supplement_amount_cents") + rs.getInt("list_price_cents")) / 100.00)
+//																.append(rs.getString("supplement_amount_currency"))
+//																.toString()
+//														: null
+//										));
+//									} else {
+//										logger.info("empty data for category ID = " + currentCategoryId + 
+//												" and catory name: " + rs.getString("resort_category_name"));
+//										newCategories.add(new CategoryWithPriceDTO(-1, "", null, null));
+//									}
+//								}
+//
+//								String supplementDescription = null;
+//								String daysOfWeek = rs.getString("supplement_days");
+//								if (daysOfWeek != null && daysOfWeek.length() > 2) {
+//									List<DayOfWeek> days = new ArrayList<>();
+//									StringBuilder supplementDescBuilder = new StringBuilder("Supplements apply on ");
+//									String[] supplementDays = daysOfWeek.substring(1, daysOfWeek.length() - 1).split(",");
+//									for (int i = 0; i < supplementDays.length; i++) {
+//										DayOfWeek day = DayOfWeek.of(Integer.parseInt(supplementDays[i].replaceAll("\"", "")) + 1);
+//										day = day.minus(1);
+//										days.add(day);
+//									}
+//
+//									days.sort(Comparator.comparing(DayOfWeek::getValue));
+//
+//									for (int i = 0; i < days.size(); i++) {
+//										if (i > 0) {
+//											supplementDescBuilder.append(", ");
+//										}
+//										supplementDescBuilder.append(days.get(i).getDisplayName(TextStyle.FULL, Locale.ENGLISH));
+//									}
+//
+//									supplementDescription = supplementDescBuilder.toString();
+//								}
+//
+//								ProductWithCategoryDTO product = new ProductWithCategoryDTO(
+//										ticketId,
+//										getJsonNestedValue(rs.getString("resort_ticket_name"), "en"),
+//										getJsonValue(rs.getString("resort_ticket_group_name"), "en"),
+//										supplementDescription,
+//										newCategories
+//								);
+//								products.add(product);
+//
+//							} else {
+//								ProductWithCategoryDTO product = products.get(products.size() - 1);
+//
+//								for (int i = 0; i < categories.size(); i++) {
+//									if (categories.get(i).getCategoryId() == currentCategoryId) {
+//										CategoryWithPriceDTO categoryToEdit = product.getCategories().get(i);
+//										categoryToEdit.setCategoryId(rs.getInt("resort_category_id"));
+//										categoryToEdit.setCategoryName(getJsonValue(rs.getString("resort_category_name"), "en"));
+//										categoryToEdit.setPrice(new StringBuilder()
+//												.append(rs.getInt("list_price_cents") / 100.00)
+//												.append(rs.getString("list_price_currency"))
+//												.toString());
+//										if (rs.getInt("supplement_amount_cents") > 0) {
+//											categoryToEdit.setSupplementPrice(new StringBuilder()
+//													.append((rs.getInt("supplement_amount_cents") + rs.getInt("list_price_cents")) / 100.00)
+//													.append(rs.getString("supplement_amount_currency"))
+//													.toString());
+//										}
+//									}
+//								}
+//							}
+//						} while (rs.next());
+//					}
+//				} ,
+//				seasonId
+//		);
+//
+//		return products;
+//	}
+	
+	
 	public List<ProductWithCategoryDTO> getProductsBySeasonId(Integer seasonId, List<CategoryWithPriceDTO> categories) {
 
 		logger.info("getProductsBySeasonId called for seasonId=" + seasonId);
 
 		List<ProductWithCategoryDTO> products = new ArrayList<>();
+		
+
+		
+		
 
 		jdbcTemplate.query(
-				"select list_price_cents, list_price_currency, rs.id as resort_season_id, rs.display_name as resort_season_name," +
+				"select list_price_cents, list_price_currency, rs.display_name as resort_season_name," +
 						" rc.id as resort_category_id, rc.display_name as resort_category_name," +
 						" rt.id as resort_ticket_id, rt.display_name as resort_ticket_name," +
 						" rtg.name as resort_ticket_group_name," +
@@ -197,41 +351,19 @@ public class ProductDAO {
 						" JOIN resort_categories rc on rtp.category_id = rc.id" +
 						" JOIN resort_tickets rt on rtp.ticket_id = rt.id" +
 						" JOIN resort_ticket_groups rtg on rtg.id = rt.group_id" +
-						" where rs.id = ?" +
-						" order by resort_season_id, resort_ticket_id, resort_category_name;",
+						" where rs.id = ? and rt.deleted_at is NULL " +
+						" and rc.id in " + get_category_id_list(categories) + 
+						" order by resort_ticket_id, resort_category_name;",
 				new RowCallbackHandler() {
 					@Override
 					public void processRow(ResultSet rs) throws SQLException {
+						int previous_ticketId = -1;
+						ProductWithCategoryDTO product = null;
 						do {
-							Integer ticketId = rs.getInt("resort_ticket_id");
-							Integer currentCategoryId = rs.getInt("resort_category_id");
-
-							if (products.isEmpty() || !products.get(products.size() - 1).getTicketId().equals(ticketId)) {
-
-								// create a list of empty categories
-								List<CategoryWithPriceDTO> newCategories = new ArrayList<>();
-
-								for (int i = 0; i < categories.size(); i++) {
-									if (categories.get(i).getCategoryId() == currentCategoryId) {
-										newCategories.add(new CategoryWithPriceDTO(
-												rs.getInt("resort_category_id"),
-												getJsonValue(rs.getString("resort_category_name"), "en"),
-												new StringBuilder()
-														.append(rs.getInt("list_price_cents") / 100.00)
-														.append(rs.getString("list_price_currency"))
-														.toString(),
-												rs.getInt("supplement_amount_cents") > 0 ?
-														new StringBuilder()
-																.append((rs.getInt("supplement_amount_cents") + rs.getInt("list_price_cents")) / 100.00)
-																.append(rs.getString("supplement_amount_currency"))
-																.toString()
-														: null
-										));
-									} else {
-										newCategories.add(new CategoryWithPriceDTO(-1, "", null, null));
-									}
-								}
-
+							int ticketId = rs.getInt("resort_ticket_id");
+							logger.info("previous_ticketId =" + previous_ticketId + ", ticketId = " + ticketId);
+							if(previous_ticketId != ticketId) {		
+								
 								String supplementDescription = null;
 								String daysOfWeek = rs.getString("supplement_days");
 								if (daysOfWeek != null && daysOfWeek.length() > 2) {
@@ -255,38 +387,44 @@ public class ProductDAO {
 
 									supplementDescription = supplementDescBuilder.toString();
 								}
-
-								ProductWithCategoryDTO product = new ProductWithCategoryDTO(
+								
+								product = new ProductWithCategoryDTO(
 										ticketId,
 										getJsonNestedValue(rs.getString("resort_ticket_name"), "en"),
 										getJsonValue(rs.getString("resort_ticket_group_name"), "en"),
 										supplementDescription,
-										newCategories
+										null
 								);
-								products.add(product);
-
-							} else {
-								ProductWithCategoryDTO product = products.get(products.size() - 1);
-
-								for (int i = 0; i < categories.size(); i++) {
-									if (categories.get(i).getCategoryId() == currentCategoryId) {
-										CategoryWithPriceDTO categoryToEdit = product.getCategories().get(i);
-										categoryToEdit.setCategoryId(rs.getInt("resort_category_id"));
-										categoryToEdit.setCategoryName(getJsonValue(rs.getString("resort_category_name"), "en"));
-										categoryToEdit.setPrice(new StringBuilder()
+								
+								if(previous_ticketId != -1) {
+									logger.info("add product =" + product.getTicketId());
+									products.add(product);
+								}
+								
+								previous_ticketId = ticketId;
+							}else {
+								CategoryWithPriceDTO new_ticket = new CategoryWithPriceDTO(
+										rs.getInt("resort_category_id"),
+										getJsonValue(rs.getString("resort_category_name"), "en"),
+										new StringBuilder()
 												.append(rs.getInt("list_price_cents") / 100.00)
 												.append(rs.getString("list_price_currency"))
-												.toString());
-										if (rs.getInt("supplement_amount_cents") > 0) {
-											categoryToEdit.setSupplementPrice(new StringBuilder()
-													.append((rs.getInt("supplement_amount_cents") + rs.getInt("list_price_cents")) / 100.00)
-													.append(rs.getString("supplement_amount_currency"))
-													.toString());
-										}
-									}
-								}
+												.toString(),
+										rs.getInt("supplement_amount_cents") > 0 ?
+												new StringBuilder()
+														.append((rs.getInt("supplement_amount_cents") + rs.getInt("list_price_cents")) / 100.00)
+														.append(rs.getString("supplement_amount_currency"))
+														.toString()
+												: null
+								);
+								logger.info("add category =" + new_ticket.getCategoryName());
+								product.addCategory(new_ticket);
 							}
+
+
 						} while (rs.next());
+						logger.info("add final product =" + product.getTicketId());
+						products.add(product);
 					}
 				} ,
 				seasonId
@@ -294,6 +432,8 @@ public class ProductDAO {
 
 		return products;
 	}
+	
+	
 
 	private String getJsonValue(String jsonString) {
 		try {
@@ -342,6 +482,22 @@ public class ProductDAO {
 		}
 
 		return null;
+	}
+	
+	private String get_category_id_list (List<CategoryWithPriceDTO> categories) {
+		StringBuffer to_return = new StringBuffer();
+		boolean is_first = true;
+		to_return.append("(");
+		for(CategoryWithPriceDTO current_cat : categories) {
+			if(!is_first) {
+				to_return.append(",");
+			}
+			to_return.append(current_cat.getCategoryId().intValue());
+			is_first = false;
+		}
+		to_return.append(")");
+		
+		return to_return.toString();
 	}
 
 }
