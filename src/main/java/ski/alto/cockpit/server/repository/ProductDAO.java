@@ -162,7 +162,7 @@ public class ProductDAO {
 		String query_stari = resortId.intValue() == MADONNA_RESORT_ID ?
 				
 				"select id, display_name from resort_categories" +
-				" where resort_id = ? and deleted_at is null and name like('SA%') " +
+				" where resort_id = ? and deleted_at is null and name not like('SA%') " +
 				" order by display_name"
 				
 				: 
