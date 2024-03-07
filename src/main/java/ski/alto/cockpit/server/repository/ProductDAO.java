@@ -163,13 +163,13 @@ public class ProductDAO {
 				
 				"select id, display_name from resort_categories" +
 				" where resort_id = ? and deleted_at is null and name like('SA%') " +
-				" order by display_name"
+				" order by id"
 				
 				: 
 				
 				"select id, display_name from resort_categories" +
 				" where resort_id = ? and deleted_at is null" +
-				" order by display_name";
+				" order by id";
 		
 		String query_novi = "select distinct rc.id , rc.display_name" +
 				" from resort_ticket_prices rtp" +
@@ -355,7 +355,7 @@ public class ProductDAO {
 						" JOIN resort_ticket_groups rtg on rtg.id = rt.group_id" +
 						" where rs.id = ? and rt.deleted_at is NULL " +
 						" and rc.id in " + get_category_id_list(categories) + 
-						" order by resort_ticket_group_name, resort_ticket_name, resort_category_name;",
+						" order by resort_ticket_group_name, resort_ticket_id, resort_category_name;",
 				new RowCallbackHandler() {
 					@Override
 					public void processRow(ResultSet rs) throws SQLException {
