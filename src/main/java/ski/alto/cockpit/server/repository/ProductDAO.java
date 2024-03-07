@@ -162,12 +162,14 @@ public class ProductDAO {
 		String query_stari = resortId.intValue() == MADONNA_RESORT_ID ?
 				
 				"select id, display_name from resort_categories" +
-				" where resort_id = ? and deleted_at is null and name not like('SA%') " +
-				" order by id"
+				" where resort_id = ? and deleted_at is null and name like('SA%') " +
+				" order by display_name"
 				
-				: "select id, display_name from resort_categories" +
+				: 
+				
+				"select id, display_name from resort_categories" +
 				" where resort_id = ? and deleted_at is null" +
-				" order by id";
+				" order by display_name";
 		
 		String query_novi = "select distinct rc.id , rc.display_name" +
 				" from resort_ticket_prices rtp" +
@@ -353,7 +355,7 @@ public class ProductDAO {
 						" JOIN resort_ticket_groups rtg on rtg.id = rt.group_id" +
 						" where rs.id = ? and rt.deleted_at is NULL " +
 						" and rc.id in " + get_category_id_list(categories) + 
-						" order by resort_ticket_id, resort_category_id;",
+						" order by resort_ticket_group_name, resort_ticket_name, resort_category_name;",
 				new RowCallbackHandler() {
 					@Override
 					public void processRow(ResultSet rs) throws SQLException {
@@ -396,10 +398,10 @@ public class ProductDAO {
 										null
 								);
 								
-								if(previous_ticketId != -1) {
-									logger.info("add product =" + product.getTicketId());
-									products.add(product);
-								}
+								//if(previous_ticketId != -1) {
+								//	logger.info("add product =" + product.getTicketId());
+								products.add(product);
+								//}
 								
 								previous_ticketId = ticketId;
 							}
