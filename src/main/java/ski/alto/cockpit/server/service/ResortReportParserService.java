@@ -8,10 +8,13 @@ import ski.alto.cockpit.server.model.CockpitResortReportDetailsDTO;
 import ski.alto.cockpit.server.model.CockpitResortReports;
 import ski.alto.cockpit.server.model.ResortReportDTO;
 import ski.alto.cockpit.server.model.Resorts;
+import ski.alto.cockpit.server.model.SkiclubCockpitResortReports;
 import ski.alto.cockpit.server.repository.CockpitResortReportsRepository;
 import ski.alto.cockpit.server.repository.ResortsRepository;
+import ski.alto.cockpit.server.repository.SkiclubCockpitResortReportsRepository;
 import ski.alto.cockpit.server.service.AmazonS3Service;
 import ski.alto.cockpit.server.utility.AmazonUtil;
+import ski.alto.cockpit.server.utility.OwnershipUtil;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -36,6 +39,9 @@ public class ResortReportParserService {
 
     @Autowired
     CockpitResortReportsRepository cockpitResortReportsRepository;
+    
+    @Autowired
+    SkiclubCockpitResortReportsRepository skiclubCockpitResortReportsRepository;
 
     /*private static final int CARD_NUMBER = 0;
     private static final int STRIPE_TRANSACTION_REFERENCE = 1;
@@ -122,35 +128,70 @@ public class ResortReportParserService {
                             if (fields.length > 20) {
                                 isNewReportFormat = true;
                             }
+                            
+                            if(isOwnershipSkiclub(ownership)) {
+                            	
+                            	SkiclubCockpitResortReports report = new SkiclubCockpitResortReports();
 
-                            CockpitResortReports report = new CockpitResortReports();
+                                // field names are based on the original order of elements
+                                // these have changed, so field names no longer match their content
+                                if (isNewReportFormat) {
+                                    report.setProductName(fields[9])
+                                            .setResortId(resort.getId())
+                                            .setTransactionDate(LocalDateTime.parse(fields[TRANSACTION_DATE] + " " + fields[5],
+                                                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
+                                            .setTransactionAmountGross(Double.parseDouble(fields[13]))
+                                            .setTransactionAmountNet(Double.parseDouble(fields[17]));
+                                    if (fields[21] != null && !fields[21].isEmpty()) {
+                                        report.setReportId(Integer.valueOf(fields[21]));
+                                    }
+                                } else {
+                                    report.setProductName(fields[PRODUCT_NAME])
+                                            .setResortId(resort.getId())
+                                            .setTransactionDate(LocalDateTime.parse(fields[TRANSACTION_DATE] + " " + fields[FIRST_ENTRY_TIME],
+                                                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
+                                            .setTransactionAmountGross(Double.parseDouble(fields[TRANSACTION_AMOUNT_GROSS]))
+                                            .setTransactionAmountNet(Double.parseDouble(fields[TRANSACTION_AMOUNT_NET]));
+                                    if (fields[REPORT_ID] != null && !fields[REPORT_ID].isEmpty()) {
+                                        report.setReportId(Integer.valueOf(fields[REPORT_ID]));
+                                    }
+                                }
 
-                            // field names are based on the original order of elements
-                            // these have changed, so field names no longer match their content
-                            if (isNewReportFormat) {
-                                report.setProductName(fields[9])
-                                        .setResortId(resort.getId())
-                                        .setTransactionDate(LocalDateTime.parse(fields[TRANSACTION_DATE] + " " + fields[5],
-                                                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
-                                        .setTransactionAmountGross(Double.parseDouble(fields[13]))
-                                        .setTransactionAmountNet(Double.parseDouble(fields[17]));
-                                if (fields[21] != null && !fields[21].isEmpty()) {
-                                    report.setReportId(Integer.valueOf(fields[21]));
+                                skiclubCockpitResortReportsRepository.save(report);
+                                logger.info("Created report for " + resort.getName() + ", at " + startDate);
+                            	
+                            }else {
+                            	CockpitResortReports report = new CockpitResortReports();
+
+                                // field names are based on the original order of elements
+                                // these have changed, so field names no longer match their content
+                                if (isNewReportFormat) {
+                                    report.setProductName(fields[9])
+                                            .setResortId(resort.getId())
+                                            .setTransactionDate(LocalDateTime.parse(fields[TRANSACTION_DATE] + " " + fields[5],
+                                                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
+                                            .setTransactionAmountGross(Double.parseDouble(fields[13]))
+                                            .setTransactionAmountNet(Double.parseDouble(fields[17]));
+                                    if (fields[21] != null && !fields[21].isEmpty()) {
+                                        report.setReportId(Integer.valueOf(fields[21]));
+                                    }
+                                } else {
+                                    report.setProductName(fields[PRODUCT_NAME])
+                                            .setResortId(resort.getId())
+                                            .setTransactionDate(LocalDateTime.parse(fields[TRANSACTION_DATE] + " " + fields[FIRST_ENTRY_TIME],
+                                                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
+                                            .setTransactionAmountGross(Double.parseDouble(fields[TRANSACTION_AMOUNT_GROSS]))
+                                            .setTransactionAmountNet(Double.parseDouble(fields[TRANSACTION_AMOUNT_NET]));
+                                    if (fields[REPORT_ID] != null && !fields[REPORT_ID].isEmpty()) {
+                                        report.setReportId(Integer.valueOf(fields[REPORT_ID]));
+                                    }
                                 }
-                            } else {
-                                report.setProductName(fields[PRODUCT_NAME])
-                                        .setResortId(resort.getId())
-                                        .setTransactionDate(LocalDateTime.parse(fields[TRANSACTION_DATE] + " " + fields[FIRST_ENTRY_TIME],
-                                                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
-                                        .setTransactionAmountGross(Double.parseDouble(fields[TRANSACTION_AMOUNT_GROSS]))
-                                        .setTransactionAmountNet(Double.parseDouble(fields[TRANSACTION_AMOUNT_NET]));
-                                if (fields[REPORT_ID] != null && !fields[REPORT_ID].isEmpty()) {
-                                    report.setReportId(Integer.valueOf(fields[REPORT_ID]));
-                                }
+
+                                cockpitResortReportsRepository.save(report);
+                                logger.info("Created report for " + resort.getName() + ", at " + startDate);
                             }
 
-                            cockpitResortReportsRepository.save(report);
-                            logger.info("Created report for " + resort.getName() + ", at " + startDate);
+                            
                         }
                     }
                 }
@@ -232,31 +273,62 @@ public class ResortReportParserService {
             LocalDate now = LocalDate.now();
             for (int i = 0; i < numberOfMonthsToDisplay; i++) {
                 now = now.minusMonths(1);
-
-                List<CockpitResortReports> resortReports = cockpitResortReportsRepository.findByResortIdAndTransactionDateBetween(
-                        resort.getId(),
-                        now.withDayOfMonth(1).atStartOfDay(),
-                        now.with(lastDayOfMonth()).plusDays(1).atStartOfDay());
-
-                if (resortReports == null ||
-                        resortReports.size() == 0) {
-                    // reports were not parsed, parsing now
-                    parseS3Report(resort, now.withDayOfMonth(1), true, ownership);
-                    //try again
-                    resortReports = cockpitResortReportsRepository.findByResortIdAndTransactionDateBetween(
-                            resort.getId(),
-                            now.withDayOfMonth(1).atStartOfDay(),
-                            now.with(lastDayOfMonth()).plusDays(1).atStartOfDay());
-                }
-
+                
                 Integer totalSoldProducts = 0;
                 Double totalIncomeGross = 0.0;
                 Double totalIncomeNet = 0.0;
-                for (CockpitResortReports resortReport: resortReports) {
-                    totalSoldProducts++;
-                    totalIncomeGross += resortReport.getTransactionAmountGross();
-                    totalIncomeNet += resortReport.getTransactionAmountNet();
+                
+                if(isOwnershipSkiclub(ownership)) {
+                    List<SkiclubCockpitResortReports> resortReports = skiclubCockpitResortReportsRepository.findByResortIdAndTransactionDateBetween(
+                            resort.getId(),
+                            now.withDayOfMonth(1).atStartOfDay(),
+                            now.with(lastDayOfMonth()).plusDays(1).atStartOfDay());
+
+                    if (resortReports == null ||
+                            resortReports.size() == 0) {
+                        // reports were not parsed, parsing now
+                        parseS3Report(resort, now.withDayOfMonth(1), true, ownership);
+                        //try again
+                        resortReports = skiclubCockpitResortReportsRepository.findByResortIdAndTransactionDateBetween(
+                                resort.getId(),
+                                now.withDayOfMonth(1).atStartOfDay(),
+                                now.with(lastDayOfMonth()).plusDays(1).atStartOfDay());
+                    }
+                    
+                    for (SkiclubCockpitResortReports resortReport: resortReports) {
+                        totalSoldProducts++;
+                        totalIncomeGross += resortReport.getTransactionAmountGross();
+                        totalIncomeNet += resortReport.getTransactionAmountNet();
+                    }
+                	
+                }else {
+                    List<CockpitResortReports> resortReports = cockpitResortReportsRepository.findByResortIdAndTransactionDateBetween(
+                            resort.getId(),
+                            now.withDayOfMonth(1).atStartOfDay(),
+                            now.with(lastDayOfMonth()).plusDays(1).atStartOfDay());
+
+                    if (resortReports == null ||
+                            resortReports.size() == 0) {
+                        // reports were not parsed, parsing now
+                        parseS3Report(resort, now.withDayOfMonth(1), true, ownership);
+                        //try again
+                        resortReports = cockpitResortReportsRepository.findByResortIdAndTransactionDateBetween(
+                                resort.getId(),
+                                now.withDayOfMonth(1).atStartOfDay(),
+                                now.with(lastDayOfMonth()).plusDays(1).atStartOfDay());
+                    }
+                    
+                    for (CockpitResortReports resortReport: resortReports) {
+                        totalSoldProducts++;
+                        totalIncomeGross += resortReport.getTransactionAmountGross();
+                        totalIncomeNet += resortReport.getTransactionAmountNet();
+                    }
                 }
+
+
+
+
+
 
                 ResortReportDTO report = new ResortReportDTO(
                         now.getMonth().name() + " " + now.getYear(),
@@ -276,5 +348,13 @@ public class ResortReportParserService {
 
         }
         return result;
+    }
+    
+    
+    
+    private boolean isOwnershipSkiclub(String ownership) {
+    	boolean to_return =  OwnershipUtil.parseOwnership(ownership) == null ; 
+    	logger.info("isOwnershipSkiclub : " + to_return); 
+    	return to_return;
     }
 }

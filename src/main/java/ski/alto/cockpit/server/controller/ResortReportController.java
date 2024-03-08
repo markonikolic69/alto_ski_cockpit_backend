@@ -59,7 +59,11 @@ public class ResortReportController {
 
     @PostMapping("/parse-all-resort-reports")
     public void parseAllResortReports(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate, @RequestParam String ownership) {
-        resortReportParserService.parseS3ReportsAllResorts(startDate, ownership);
+        if(startDate == null) {
+        	startDate = LocalDate.now();
+        	startDate.minusDays(1);
+        }
+    	resortReportParserService.parseS3ReportsAllResorts(startDate, ownership);
         logger.info("Finisher reports parsing for all resort");
     }
 
