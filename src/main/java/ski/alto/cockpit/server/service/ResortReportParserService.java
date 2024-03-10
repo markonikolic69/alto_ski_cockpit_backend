@@ -353,7 +353,7 @@ public class ResortReportParserService {
     
     
     private boolean isOwnershipSkiclub(String ownership) {
-    	boolean to_return =  OwnershipUtil.parseOwnership(ownership) == null ; 
+    	boolean to_return =  OwnershipUtil.parseOwnership(ownership) != null ; 
     	logger.info("isOwnershipSkiclub : " + to_return); 
     	return to_return;
     }
