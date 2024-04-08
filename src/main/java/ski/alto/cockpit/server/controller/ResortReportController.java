@@ -58,6 +58,7 @@ public class ResortReportController {
     }
 
     @PostMapping("/parse-all-resort-reports")
+    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski"}, methods = {RequestMethod.POST, RequestMethod.OPTIONS})
     public void parseAllResortReports(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate, @RequestParam String ownership) {
         if(startDate == null) {
         	startDate = LocalDate.now();
