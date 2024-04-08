@@ -276,7 +276,7 @@ public class AdminUsersPreviewDAO {
 			List<AdminUsersPreviewDTO> results = jdbcTemplate.query(
 					"select acu.id id, acu.email email, acu.password_digest password_digest, acu.user_type user_type, acu.first_name first_name, \r\n"
 							+ "acu.last_name last_name, u.id users_id, r.name resort_name, r.id resort_id\r\n"
-							+ "from admin_cockpit_users acu left outer join users u on acu.users_id=u.id left outer join resorts r on u.resort_id=r.id where acu.id=? and u.ownership!=?",
+							+ "from admin_cockpit_users acu left outer join users u on acu.users_id=u.id left outer join resorts r on u.resort_id=r.id where acu.id=? and acu.ownership!=?",
 					(rs, rowNum) -> new AdminUsersPreviewDTO(
 							rs.getInt("id"),
 							rs.getString("email"),
