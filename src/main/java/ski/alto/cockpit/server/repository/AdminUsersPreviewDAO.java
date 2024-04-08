@@ -312,7 +312,7 @@ public class AdminUsersPreviewDAO {
 	public NewAdminCockpitUserResponse addAdminCockpitUser(NewAdminCockpitUserRequest user) {
 		int success;
 		String message = "OK";
-		String ownership = user.getResort_name() == null || user.getResort_name().equals("") ? "SKICLUB_GB" : null;
+		String ownership = user.getResort_name() == null || user.getResort_name().equals("") ? "SkiClub" : null;
 		if(emailExists(user)) {
 			success = -1;
 			message = "Email already exists!";
