@@ -40,6 +40,7 @@ ski\alto\cockpit\server\response\NewAdminCockpitUserResponse.class
 ski\alto\cockpit\server\repository\DTACardDAO.class
 ski\alto\cockpit\server\repository\SmartCardUsagesRepository.class
 ski\alto\cockpit\server\repository\UserReportDAO.class
+ski\alto\cockpit\server\repository\SkiclubCockpitResortReportsRepository.class
 ski\alto\cockpit\server\service\UserReportService.class
 ski\alto\cockpit\server\controller\GateUsageController.class
 ski\alto\cockpit\server\model\Users.class
@@ -57,6 +58,7 @@ ski\alto\cockpit\server\controller\AirtableController.class
 ski\alto\cockpit\server\model\ResortReportDTO.class
 ski\alto\cockpit\server\repository\UsersRepository.class
 ski\alto\cockpit\server\service\AdminCockpitUsersServiceImpl.class
+ski\alto\cockpit\server\model\SkiclubCockpitResortReports.class
 ski\alto\cockpit\server\response\LoginResponse.class
 ski\alto\cockpit\server\repository\UserDAO.class
 ski\alto\cockpit\server\model\ResortIdNamePair.class

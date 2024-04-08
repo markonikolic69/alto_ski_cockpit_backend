@@ -154,7 +154,9 @@ public class AmazonS3Service {
     }
 
     public InputStream getAmazonS3Stream(String fileKey, String fileName, String bucketName) {
-
+    	logger.info("S3 fileKey is : " + fileKey);
+    	logger.info("S3 fileName is : " + fileName);
+    	logger.info("S3 bucketName is : " + bucketName);
         InputStream result = null;
 
         if (s3Client.doesObjectExist(bucketName, fileKey)) {

@@ -72,7 +72,8 @@ public class AdminUsersPreviewDAO {
 			dtaAdminUsers = jdbcTemplate.query(
 					"select acu.id id, acu.email email, acu.password_digest password_digest, acu.user_type user_type, acu.first_name first_name, \r\n"
 							+ "acu.last_name last_name, u.id users_id, r.name resort_name, r.id resort_id\r\n"
-							+ "from admin_cockpit_users acu left outer join users u on acu.users_id=u.id left outer join resorts r on u.resort_id=r.id where LOWER(acu.email) LIKE LOWER('%'||?||'%')\r\n and u.ownership=?"
+							+ "from admin_cockpit_users acu left outer join users u on acu.users_id=u.id left outer join resorts r on u.resort_id=r.id \r\n"
+							+ "where LOWER(acu.email) LIKE LOWER('%'||?||'%') and acu.ownership=?\r\n"
 							+ "order by id desc",
 					(rs, rowNum) -> new AdminUsersPreviewDTO(
 							rs.getInt("id"),
@@ -117,7 +118,7 @@ public class AdminUsersPreviewDAO {
 			dtaAdminUsers =  jdbcTemplate.query(
 					"select acu.id id, acu.email email, acu.password_digest password_digest, acu.user_type user_type, acu.first_name first_name, \r\n"
 							+ "acu.last_name last_name, u.id users_id, r.name resort_name, r.id resort_id\r\n"
-							+ "from admin_cockpit_users acu left outer join users u on acu.users_id=u.id left outer join resorts r on u.resort_id=r.id where LOWER(acu.first_name) LIKE LOWER('%'||?||'%') and u.ownership=?\r\n"
+							+ "from admin_cockpit_users acu left outer join users u on acu.users_id=u.id left outer join resorts r on u.resort_id=r.id where LOWER(acu.first_name) LIKE LOWER('%'||?||'%') and acu.ownership=?\r\n"
 							+ "order by id desc",
 					(rs, rowNum) -> new AdminUsersPreviewDTO(
 							rs.getInt("id"),
@@ -162,7 +163,7 @@ public class AdminUsersPreviewDAO {
 			dtaAdminUsers =  jdbcTemplate.query(
 					"select acu.id id, acu.email email, acu.password_digest password_digest, acu.user_type user_type, acu.first_name first_name, \r\n"
 							+ "acu.last_name last_name, u.id users_id, r.name resort_name, r.id resort_id\r\n"
-							+ "from admin_cockpit_users acu left outer join users u on acu.users_id=u.id left outer join resorts r on u.resort_id=r.id where LOWER(acu.last_name) LIKE LOWER('%'||?||'%') and u.ownership=?\r\n"
+							+ "from admin_cockpit_users acu left outer join users u on acu.users_id=u.id left outer join resorts r on u.resort_id=r.id where LOWER(acu.last_name) LIKE LOWER('%'||?||'%') and acu.ownership=?\r\n"
 							+ "order by id desc",
 					(rs, rowNum) -> new AdminUsersPreviewDTO(
 							rs.getInt("id"),
@@ -208,7 +209,7 @@ public class AdminUsersPreviewDAO {
 					"select acu.id id, acu.email email, acu.password_digest password_digest, acu.user_type user_type, acu.first_name first_name, \r\n"
 							+ "acu.last_name last_name, u.id users_id, r.name resort_name, r.id resort_id\r\n"
 							+ "from admin_cockpit_users acu left outer join users u on acu.users_id=u.id left outer join resorts r on u.resort_id=r.id\r\n "
-							+ "where LOWER(acu.id::varchar) LIKE LOWER('%'||?||'%') and u.ownership=?\r\n"
+							+ "where LOWER(acu.id::varchar) LIKE LOWER('%'||?||'%') and acu.ownership=?\r\n"
 							+ "order by id desc",
 					(rs, rowNum) -> new AdminUsersPreviewDTO(
 							rs.getInt("id"),
@@ -311,14 +312,15 @@ public class AdminUsersPreviewDAO {
 	public NewAdminCockpitUserResponse addAdminCockpitUser(NewAdminCockpitUserRequest user) {
 		int success;
 		String message = "OK";
+		String ownership = user.getResort_name() == null || user.getResort_name().equals("") ? "SKICLUB_GB" : null;
 		if(emailExists(user)) {
 			success = -1;
 			message = "Email already exists!";
 		}
 		else
 			success =  jdbcTemplate.update(
-    		    "INSERT INTO public.admin_cockpit_users (email, first_name, last_name, password_digest, user_type, id, users_id) VALUES (?, ?, ?, ?, ?, default, ?)",
-    		    user.getEmail(), user.getFirst_name(), user.getLast_name(), user.getPasswordDigest(), user.getUserType(), user.getUsers_id()
+    		    "INSERT INTO public.admin_cockpit_users (email, first_name, last_name, password_digest, user_type, id, users_id, ownership) VALUES (?, ?, ?, ?, ?, default, ?, ?)",
+    		    user.getEmail(), user.getFirst_name(), user.getLast_name(), user.getPasswordDigest(), user.getUserType(), user.getUsers_id(), ownership
     		);
     	return new NewAdminCockpitUserResponse(success, message);
     }

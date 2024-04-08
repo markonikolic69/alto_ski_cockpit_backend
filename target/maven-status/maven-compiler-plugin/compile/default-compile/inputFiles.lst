@@ -46,6 +46,7 @@ C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\main\ja
 C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\main\java\ski\alto\cockpit\server\model\SeasonDTO.java
 C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\main\java\ski\alto\cockpit\server\service\ResortsService.java
 C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\main\java\ski\alto\cockpit\server\response\NewAdminCockpitUserResponse.java
+C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\main\java\ski\alto\cockpit\server\model\SkiclubCockpitResortReports.java
 C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\main\java\ski\alto\cockpit\server\service\AmazonS3Service.java
 C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\main\java\ski\alto\cockpit\server\repository\DTACardDAO.java
 C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\main\java\ski\alto\cockpit\server\repository\ResortsRepository.java
@@ -77,5 +78,6 @@ C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\main\ja
 C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\main\java\ski\alto\cockpit\server\service\UsersService.java
 C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\main\java\ski\alto\cockpit\server\repository\SmartCardUsagesRepository.java
 C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\main\java\ski\alto\cockpit\server\utility\OwnershipUtil.java
+C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\main\java\ski\alto\cockpit\server\repository\SkiclubCockpitResortReportsRepository.java
 C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\main\java\ski\alto\cockpit\server\controller\ResortReportController.java
 C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\main\java\ski\alto\cockpit\server\service\AdminCockpitUsersService.java
