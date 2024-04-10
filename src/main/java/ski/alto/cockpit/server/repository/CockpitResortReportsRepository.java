@@ -13,4 +13,6 @@ public interface CockpitResortReportsRepository extends JpaRepository<CockpitRes
     public CockpitResortReports save(CockpitResortReports report);
 
     public List<CockpitResortReports> findByResortIdAndTransactionDateBetween(Integer resortId, LocalDateTime from, LocalDateTime to);
+    
+    public Long deleteByResortIdAndTransactionDateBetween(Integer resortId, LocalDateTime from, LocalDateTime to);
 }

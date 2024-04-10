@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import ski.alto.cockpit.server.model.CockpitResortReportDetailsDTO;
 import ski.alto.cockpit.server.model.CockpitResortReports;
 import ski.alto.cockpit.server.model.ResortReportDTO;
@@ -29,6 +31,7 @@ import java.util.List;
 import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
 
 @Service
+@Transactional
 public class ResortReportParserService {
 
     @Autowired
@@ -100,6 +103,7 @@ public class ResortReportParserService {
 
     public void parseS3Report(Resorts resort, LocalDate startDate, boolean parseSingleMonth, String ownership) {
 
+    	//first in current Month
         LocalDate parsingLimitDate = LocalDate.now().withDayOfMonth(1);
         if (parseSingleMonth) {
             parsingLimitDate = startDate.plusMonths(1);
@@ -115,6 +119,18 @@ public class ResortReportParserService {
                         startDate.with(lastDayOfMonth()), ownership);
 
                 if (is != null) {
+                	if(isOwnershipSkiclub(ownership)) {
+                		skiclubCockpitResortReportsRepository.deleteByResortIdAndTransactionDateBetween(
+                            resort.getId(),
+                            startDate.withDayOfMonth(1).atStartOfDay(),
+                            startDate.with(lastDayOfMonth()).plusDays(1).atStartOfDay());
+                		logger.info("Recors are deleted for " + resort.getName() + " at " + startDate);
+                	}else {
+                    	cockpitResortReportsRepository.deleteByResortIdAndTransactionDateBetween(
+                                resort.getId(),
+                                startDate.withDayOfMonth(1).atStartOfDay(),
+                                startDate.with(lastDayOfMonth()).plusDays(1).atStartOfDay());
+                	}
                     BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 
                     String line = reader.readLine(); //skip header
