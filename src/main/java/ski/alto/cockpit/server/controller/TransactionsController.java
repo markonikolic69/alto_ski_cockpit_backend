@@ -23,7 +23,7 @@ public class TransactionsController {
     TransactionsDAO transactionsDAO;
 
 //    @CrossOrigin(origins = "http://94.127.4.240:4200")	//	SERVER CONFIG
-    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski", "https://skiclubgb-cockpit-54385e0a75d2.herokuapp.com"})
+    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski", "https://alto-ski-cockpit-client-393cf5cd662a.herokuapp.com"})
     @GetMapping("/transactions")
     public List<TransactionDTO> getTransactions(@RequestParam Map<String,String> requestParams) {
 
@@ -40,19 +40,19 @@ public class TransactionsController {
         return transactions;
     }
 
-    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski", "https://skiclubgb-cockpit-54385e0a75d2.herokuapp.com"})
+    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski", "https://alto-ski-cockpit-client-393cf5cd662a.herokuapp.com"})
     @PostMapping("/last_failed_transaction")
     public Integer getLastFailedTransactionId(@RequestParam String ownership) {
         return transactionsDAO.getLastStripeChargeFailure(OwnershipUtil.parseOwnership(ownership));
     }
 
-    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski", "https://skiclubgb-cockpit-54385e0a75d2.herokuapp.com"})
+    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski", "https://alto-ski-cockpit-client-393cf5cd662a.herokuapp.com"})
     @PostMapping("/failed_transactions")
     public List<FailedTransactionDTO> getFailedTransactions(@RequestBody FailedTransactionsRequest request) {
         return transactionsDAO.getStripeChargeFailures(request.getLastKnownFailedChargeId(), OwnershipUtil.parseOwnership(request.getOwnership()));
     }
 
-    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski", "https://skiclubgb-cockpit-54385e0a75d2.herokuapp.com"})
+    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski", "https://alto-ski-cockpit-client-393cf5cd662a.herokuapp.com"})
     @PostMapping("/failed_transactions_today")
     public List<FailedTransactionDTO> getFailedTransactionsToday(@RequestParam String ownership) {
         return transactionsDAO.getStripeChargeFailuresFromToday(OwnershipUtil.parseOwnership(ownership));
