@@ -22,9 +22,9 @@ public class AdminUsersPreviewDAO {
 	public List<AdminUsersPreviewDTO> getAdminCockpitUserByUserType(AdminCockpitUserByUserTypeRequest user) {
 
 		List<AdminUsersPreviewDTO> dtaAdminUsers =  null;
-		String ownership = OwnershipUtil.parseOwnership(user.getOwnership());
+		String ownership_parset = OwnershipUtil.parseOwnership(user.getOwnership());
 
-		if (ownership != null) {
+		if (ownership_parset != null) {
 			dtaAdminUsers =  jdbcTemplate.query(
 					"select u.id user_id, u.email email, u.first_name first_name, u.last_name last_name, u.role user_type, \r\n"
 							+ "u.password_digest password_digest, res.name resort_name, res.id resort_id\r\n"
@@ -40,7 +40,7 @@ public class AdminUsersPreviewDAO {
 							rs.getInt("user_id"),
 							rs.getString("resort_name"),
 							rs.getInt("resort_id")),
-					user.getUser_type(), ownership
+					user.getUser_type(), ownership_parset
 			);
 		} else {
 			dtaAdminUsers =  jdbcTemplate.query(
@@ -67,8 +67,10 @@ public class AdminUsersPreviewDAO {
 	public List<AdminUsersPreviewDTO> searchAdminCockpitUsersByEmail(String email, String ownership) {
 
     	List<AdminUsersPreviewDTO> dtaAdminUsers =  null;
+    	
+    	String ownership_parset = OwnershipUtil.parseOwnership(ownership);
 
-		if (ownership != null) {
+		if (ownership_parset != null) {
 			dtaAdminUsers = jdbcTemplate.query(
 					"select acu.id id, acu.email email, acu.password_digest password_digest, acu.user_type user_type, acu.first_name first_name, \r\n"
 							+ "acu.last_name last_name, u.id users_id, r.name resort_name, r.id resort_id\r\n"
@@ -85,7 +87,7 @@ public class AdminUsersPreviewDAO {
 							rs.getInt("users_id"),
 							rs.getString("resort_name"),
 							rs.getInt("resort_id")),
-					email, ownership
+					email, ownership_parset
 			);
 		} else {
 			dtaAdminUsers = jdbcTemplate.query(
@@ -113,8 +115,10 @@ public class AdminUsersPreviewDAO {
 	public List<AdminUsersPreviewDTO> searchAdminCockpitUsersByFirstName(String first_name, String ownership) {
 
 		List<AdminUsersPreviewDTO> dtaAdminUsers = null;
+		
+		String ownership_parset = OwnershipUtil.parseOwnership(ownership);
 
-		if (ownership != null) {
+		if (ownership_parset != null) {
 			dtaAdminUsers =  jdbcTemplate.query(
 					"select acu.id id, acu.email email, acu.password_digest password_digest, acu.user_type user_type, acu.first_name first_name, \r\n"
 							+ "acu.last_name last_name, u.id users_id, r.name resort_name, r.id resort_id\r\n"
@@ -130,7 +134,7 @@ public class AdminUsersPreviewDAO {
 							rs.getInt("users_id"),
 							rs.getString("resort_name"),
 							rs.getInt("resort_id")),
-					first_name, ownership
+					first_name, ownership_parset
 			);
 		} else {
 			dtaAdminUsers =  jdbcTemplate.query(
@@ -158,8 +162,10 @@ public class AdminUsersPreviewDAO {
 	public List<AdminUsersPreviewDTO> searchAdminCockpitUsersByLastName(String last_name, String ownership) {
 
 		List<AdminUsersPreviewDTO> dtaAdminUsers = null;
+		
+		String ownership_parset = OwnershipUtil.parseOwnership(ownership);
 
-		if (ownership != null) {
+		if (ownership_parset != null) {
 			dtaAdminUsers =  jdbcTemplate.query(
 					"select acu.id id, acu.email email, acu.password_digest password_digest, acu.user_type user_type, acu.first_name first_name, \r\n"
 							+ "acu.last_name last_name, u.id users_id, r.name resort_name, r.id resort_id\r\n"
@@ -175,7 +181,7 @@ public class AdminUsersPreviewDAO {
 							rs.getInt("users_id"),
 							rs.getString("resort_name"),
 							rs.getInt("resort_id")),
-					last_name, ownership
+					last_name, ownership_parset
 			);
 		} else {
 			dtaAdminUsers =  jdbcTemplate.query(
@@ -203,8 +209,10 @@ public class AdminUsersPreviewDAO {
 	public List<AdminUsersPreviewDTO> searchAdminCockpitUsersByID(String id, String ownership) {
 
 		List<AdminUsersPreviewDTO> dtaAdminUsers = null;
+		
+		String ownership_parset = OwnershipUtil.parseOwnership(ownership);
 
-		if (ownership != null) {
+		if ( ownership_parset != null) {
 			dtaAdminUsers =  jdbcTemplate.query(
 					"select acu.id id, acu.email email, acu.password_digest password_digest, acu.user_type user_type, acu.first_name first_name, \r\n"
 							+ "acu.last_name last_name, u.id users_id, r.name resort_name, r.id resort_id\r\n"
@@ -221,7 +229,7 @@ public class AdminUsersPreviewDAO {
 							rs.getInt("users_id"),
 							rs.getString("resort_name"),
 							rs.getInt("resort_id")),
-					id, ownership
+					id, ownership_parset
 			);
 		} else {
 			dtaAdminUsers =  jdbcTemplate.query(
@@ -251,7 +259,7 @@ public class AdminUsersPreviewDAO {
 
 		AdminUsersPreviewDTO dtaAdminUser = null;
 
-		if (ownership != null ) {
+		if (OwnershipUtil.parseOwnership(ownership) == null ) {
 			// not using ownership to allow Alto users to log in
 			List<AdminUsersPreviewDTO> results =  jdbcTemplate.query(
 					"select acu.id id, acu.email email, acu.password_digest password_digest, acu.user_type user_type, acu.first_name first_name, \r\n"
