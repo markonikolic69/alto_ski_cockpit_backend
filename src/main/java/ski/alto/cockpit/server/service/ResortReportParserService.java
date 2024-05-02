@@ -130,6 +130,9 @@ public class ResortReportParserService {
                                 resort.getId(),
                                 startDate.withDayOfMonth(1).atStartOfDay(),
                                 startDate.with(lastDayOfMonth()).plusDays(1).atStartOfDay());
+                    	logger.info("Recors are deleted for " + resort.getName() + " at " + startDate + 
+                    			", sart_date = " + startDate.withDayOfMonth(1).atStartOfDay() + 
+                    			", end_date = " + startDate.with(lastDayOfMonth()).plusDays(1).atStartOfDay());
                 	}
                     BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 
