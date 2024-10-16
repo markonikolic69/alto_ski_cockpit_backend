@@ -1,9 +1,9 @@
-2024-10-10 13:41:19,154 INFO org.springframework.boot.StartupInfoLogger [main] Starting JWTUtilTest using Java 11.0.9 on LAPTOP-8TS8S72G with PID 14032 (started by 38164 in C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server)
-2024-10-10 13:41:19,158 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
-2024-10-10 13:41:20,043 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-10-10 13:41:20,148 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 92 ms. Found 7 JPA repository interfaces.
-2024-10-10 13:41:20,818 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
-2024-10-10 13:41:22,709 ERROR com.zaxxer.hikari.pool.HikariPool [main] HikariPool-1 - Exception during pool initialization.
+2024-10-05 19:09:50,821 INFO org.springframework.boot.StartupInfoLogger [main] Starting AmazonS3ServiceTest using Java 11.0.9 on LAPTOP-8TS8S72G with PID 21812 (started by 38164 in C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server)
+2024-10-05 19:09:50,826 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2024-10-05 19:09:51,754 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-05 19:09:51,875 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 109 ms. Found 7 JPA repository interfaces.
+2024-10-05 19:09:52,619 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2024-10-05 19:09:54,867 ERROR com.zaxxer.hikari.pool.HikariPool [main] HikariPool-1 - Exception during pool initialization.
 org.postgresql.util.PSQLException: FATAL: password authentication failed for user "d31vvftiej4htj"
 	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:646)
 	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:180)
@@ -127,11 +127,11 @@ org.postgresql.util.PSQLException: FATAL: password authentication failed for use
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:770)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:464)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:210)
-2024-10-10 13:41:22,781 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-10-10 13:41:22,859 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.9.Final
-2024-10-10 13:41:23,076 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2024-10-10 13:41:23,207 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
-2024-10-10 13:41:24,480 ERROR com.zaxxer.hikari.pool.HikariPool [main] HikariPool-1 - Exception during pool initialization.
+2024-10-05 19:09:54,968 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-05 19:09:55,065 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.9.Final
+2024-10-05 19:09:55,381 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-10-05 19:09:55,527 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2024-10-05 19:09:56,850 ERROR com.zaxxer.hikari.pool.HikariPool [main] HikariPool-1 - Exception during pool initialization.
 org.postgresql.util.PSQLException: FATAL: password authentication failed for user "d31vvftiej4htj"
 	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:646)
 	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:180)
@@ -256,7 +256,7 @@ org.postgresql.util.PSQLException: FATAL: password authentication failed for use
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:770)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:464)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:210)
-2024-10-10 13:41:24,484 WARN org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator [main] HHH000342: Could not obtain connection to query metadata
+2024-10-05 19:09:56,853 WARN org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator [main] HHH000342: Could not obtain connection to query metadata
 org.postgresql.util.PSQLException: FATAL: password authentication failed for user "d31vvftiej4htj"
 	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:646)
 	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:180)
@@ -381,9 +381,14 @@ org.postgresql.util.PSQLException: FATAL: password authentication failed for use
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:770)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:464)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:210)
-2024-10-10 13:41:24,516 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
-2024-10-10 13:41:25,197 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2024-10-10 13:41:25,207 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-10-10 13:41:27,019 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-10-10 13:41:27,909 INFO org.springframework.boot.StartupInfoLogger [main] Started JWTUtilTest in 9.52 seconds (JVM running for 11.004)
-2024-10-10 13:41:28,167 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-05 19:09:56,892 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-10-05 19:09:57,622 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-10-05 19:09:57,631 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-05 19:09:59,423 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-05 19:10:00,300 INFO org.springframework.boot.StartupInfoLogger [main] Started AmazonS3ServiceTest in 10.05 seconds (JVM running for 11.861)
+2024-10-05 19:10:00,486 INFO ski.alto.cockpit.server.service.AmazonS3Service [main] S3 bucket name is : resort-reports-skiclub
+2024-10-05 19:10:05,035 ERROR ski.alto.cockpit.server.service.AmazonS3Service [main] Forbidden (Service: Amazon S3; Status Code: 403; Error Code: 403 Forbidden; Request ID: TPHGVMQCKFVV1M45; S3 Extended Request ID: /+nPYqiWUfVKR0GvsWh8IilWOdMghDTs3V0E8t8CuPA9MJOpeHh4HqHpqpKiZOcy6o8ksOI4G4V1z1fLPtQMHA==; Proxy: null)
+2024-10-05 19:10:05,036 INFO ski.alto.cockpit.server.service.AmazonS3ServiceTest [main] null
+2024-10-05 19:10:09,336 ERROR ski.alto.cockpit.server.service.AmazonS3Service [main] Forbidden (Service: Amazon S3; Status Code: 403; Error Code: 403 Forbidden; Request ID: X1J0Z3Z5E9X1N4AF; S3 Extended Request ID: UckULz52UP58nF337zmtLYXdNng1IUC4kEYxzMiKLg5s7vRnBCu+B7B6F9XMEkXykh+aJtuTVyo=; Proxy: null)
+2024-10-05 19:10:09,338 INFO ski.alto.cockpit.server.service.AmazonS3ServiceTest [main] null
+2024-10-05 19:10:09,360 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
