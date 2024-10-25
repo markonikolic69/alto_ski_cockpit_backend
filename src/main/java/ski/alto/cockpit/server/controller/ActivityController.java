@@ -21,8 +21,8 @@ public class ActivityController {
     @Autowired
     ActivityDAO activityDAO;
 
-//    @CrossOrigin(origins = "http://94.127.4.240:4200")	//	SERVER CONFIG
-    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski", "https://alto-ski-cockpit-client-393cf5cd662a.herokuapp.com"})
+
+    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://reciklomatmobapp.suprabit.rs:8081/", "http://localhost:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski", "https://alto-ski-cockpit-client-393cf5cd662a.herokuapp.com"})
     @GetMapping("/activities")
     public List<ActivityDTO> getUserActivities(@RequestParam Map<String,String> requestParams) {
     	
@@ -42,7 +42,7 @@ public class ActivityController {
     	return activityDAO.getDTACardByCardNumberAndResortIdForDateRange(card_number, start_date, end_date, resort_id, smart_card_id);
     }
     
-    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski", "https://skiclubgb-cockpit-54385e0a75d2.herokuapp.com", "https://alto-ski-cockpit-client-393cf5cd662a.herokuapp.com"})
+    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://reciklomatmobapp.suprabit.rs:8081/", "http://localhost:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski", "https://skiclubgb-cockpit-54385e0a75d2.herokuapp.com", "https://alto-ski-cockpit-client-393cf5cd662a.herokuapp.com"})
     @GetMapping("/activities_for_today")
     public List<ActivityDTO> getAllUserActivitiesForToday(@RequestParam Map<String,String> requestParams) {
     	

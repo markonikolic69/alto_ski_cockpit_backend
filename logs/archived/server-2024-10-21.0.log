@@ -1,0 +1,57 @@
+2024-10-21 22:18:47,270 INFO org.springframework.boot.StartupInfoLogger [main] Starting TripsServiceTest using Java 11.0.9 on LAPTOP-8TS8S72G with PID 18940 (started by 38164 in C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server)
+2024-10-21 22:18:47,276 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2024-10-21 22:18:48,277 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-21 22:18:48,423 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 131 ms. Found 8 JPA repository interfaces.
+2024-10-21 22:18:49,167 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2024-10-21 22:18:50,390 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2024-10-21 22:18:50,478 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-21 22:18:50,553 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.9.Final
+2024-10-21 22:18:50,792 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-10-21 22:18:51,014 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-10-21 22:18:51,831 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-10-21 22:18:51,843 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-21 22:18:53,811 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-21 22:18:54,687 INFO org.springframework.boot.StartupInfoLogger [main] Started TripsServiceTest in 8.134 seconds (JVM running for 9.867)
+2024-10-21 22:18:54,911 INFO ski.alto.cockpit.server.repository.SkiclubTripsDAO [main] getSkiclubTripsForMonth
+2024-10-21 22:18:55,058 INFO ski.alto.cockpit.server.repository.SkiclubTripsDAO [main] getSkiclubTripsForMonth
+2024-10-21 22:18:55,130 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-21 22:18:55,137 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2024-10-21 22:18:55,622 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2024-10-21 22:20:40,043 INFO org.springframework.boot.StartupInfoLogger [main] Starting TripsServiceTest using Java 11.0.9 on LAPTOP-8TS8S72G with PID 21692 (started by 38164 in C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server)
+2024-10-21 22:20:40,045 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2024-10-21 22:20:40,928 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-21 22:20:41,053 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 115 ms. Found 8 JPA repository interfaces.
+2024-10-21 22:20:41,745 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2024-10-21 22:20:42,869 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2024-10-21 22:20:42,941 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-21 22:20:42,998 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.9.Final
+2024-10-21 22:20:43,209 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-10-21 22:20:43,354 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-10-21 22:20:44,198 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-10-21 22:20:44,213 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-21 22:20:46,161 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-21 22:20:47,008 INFO org.springframework.boot.StartupInfoLogger [main] Started TripsServiceTest in 7.484 seconds (JVM running for 8.661)
+2024-10-21 22:20:47,223 INFO ski.alto.cockpit.server.repository.SkiclubTripsDAO [main] getSkiclubTripsForMonth
+2024-10-21 22:20:47,358 INFO ski.alto.cockpit.server.repository.SkiclubTripsDAO [main] getSkiclubTripsForMonth
+2024-10-21 22:20:47,424 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-21 22:20:47,431 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2024-10-21 22:20:47,940 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2024-10-21 22:26:24,788 INFO org.springframework.boot.StartupInfoLogger [main] Starting TripsServiceTest using Java 11.0.9 on LAPTOP-8TS8S72G with PID 20708 (started by 38164 in C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server)
+2024-10-21 22:26:24,790 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2024-10-21 22:26:25,691 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-21 22:26:25,810 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 105 ms. Found 8 JPA repository interfaces.
+2024-10-21 22:26:26,471 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2024-10-21 22:26:27,604 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2024-10-21 22:26:27,683 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-21 22:26:27,732 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.9.Final
+2024-10-21 22:26:27,952 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-10-21 22:26:28,127 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-10-21 22:26:28,933 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-10-21 22:26:28,944 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-21 22:26:30,759 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-21 22:26:31,586 INFO org.springframework.boot.StartupInfoLogger [main] Started TripsServiceTest in 7.291 seconds (JVM running for 8.501)
+2024-10-21 22:26:31,762 INFO ski.alto.cockpit.server.repository.SkiclubTripsDAO [main] getSkiclubTripsForMonth
+2024-10-21 22:26:31,899 INFO ski.alto.cockpit.server.repository.SkiclubTripsDAO [main] getSkiclubTripsForMonth
+2024-10-21 22:26:31,971 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-21 22:26:31,979 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2024-10-21 22:26:32,451 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.

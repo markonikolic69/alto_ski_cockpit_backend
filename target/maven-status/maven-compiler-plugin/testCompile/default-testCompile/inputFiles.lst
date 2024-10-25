@@ -7,11 +7,13 @@ C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\test\ja
 C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\test\java\ski\alto\cockpit\server\repository\AdminUsersPreviewDAOTest.java
 C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\test\java\ski\alto\cockpit\server\repository\DTACardDAOTest.java
 C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\test\java\ski\alto\cockpit\server\repository\TransactionsDAOTest.java
+C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\test\java\ski\alto\cockpit\server\util\JWTUtilTest.java
 C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\test\java\ski\alto\cockpit\server\repository\AdminCockpitUsersRepositoryTest.java
 C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\test\java\ski\alto\cockpit\server\repository\SmartCardUsagesDAOTest.java
 C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\test\java\ski\alto\cockpit\server\service\AdminCockpitUsersServiceTest.java
 C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\test\java\ski\alto\cockpit\server\repository\ResortsRepositoryTest.java
 C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\test\java\ski\alto\cockpit\server\service\AmazonS3ServiceTest.java
+C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\test\java\ski\alto\cockpit\server\service\TripsServiceTest.java
 C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\test\java\ski\alto\cockpit\server\repository\SmartCardUsagesRepositoryTest.java
 C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\test\java\ski\alto\cockpit\server\repository\ProductDAOTest.java
 C:\Users\38164\eclipse-workspace\alto_ski_back_office\cockpit-server\src\test\java\ski\alto\cockpit\server\repository\UserReportDAOTest.java

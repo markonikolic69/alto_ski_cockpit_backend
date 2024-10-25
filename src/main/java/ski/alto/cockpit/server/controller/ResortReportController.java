@@ -39,14 +39,14 @@ public class ResortReportController {
     private final int NUMBER_OF_MONTHS_TO_DISPLAY = 12;
 
     @PostMapping("/resort-report")
-    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski", "https://alto-ski-cockpit-client-393cf5cd662a.herokuapp.com"}, methods = {RequestMethod.POST, RequestMethod.OPTIONS})
+    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://reciklomatmobapp.suprabit.rs:8081/", "http://localhost:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski", "https://alto-ski-cockpit-client-393cf5cd662a.herokuapp.com"}, methods = {RequestMethod.POST, RequestMethod.OPTIONS})
     public List<ResortReportDTO> getResortReport(@RequestBody ResortReportRequest request, @RequestParam String ownership) {
 
         return resortReportParserService.getResortReportList(request.getResortName(), NUMBER_OF_MONTHS_TO_DISPLAY, ownership);
     }
 
     @PostMapping("/resort-report-details")
-    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski", "https://alto-ski-cockpit-client-393cf5cd662a.herokuapp.com"}, methods = {RequestMethod.POST, RequestMethod.OPTIONS})
+    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://reciklomatmobapp.suprabit.rs:8081/", "http://localhost:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski", "https://alto-ski-cockpit-client-393cf5cd662a.herokuapp.com"}, methods = {RequestMethod.POST, RequestMethod.OPTIONS})
     public List<ResortReportDTO> getResortReportDetails(@RequestBody ResortReportRequest request, @RequestParam String ownership) {
 
         return resortReportParserService.getResortReportList(request.getResortName(), NUMBER_OF_MONTHS_TO_DISPLAY, ownership);
@@ -59,7 +59,7 @@ public class ResortReportController {
     }
 
     @PostMapping("/parse-all-resort-reports")
-    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski", "https://alto-ski-cockpit-client-393cf5cd662a.herokuapp.com"}, methods = {RequestMethod.POST, RequestMethod.OPTIONS})
+    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski", "https://alto-ski-cockpit-client-393cf5cd662a.herokuapp.com"}, methods = {RequestMethod.POST, RequestMethod.OPTIONS})
     public void parseAllResortReports(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate, @RequestParam String ownership) {
         if(startDate == null) {
         	startDate = LocalDate.now();

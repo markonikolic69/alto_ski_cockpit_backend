@@ -27,8 +27,8 @@ public class UsersController {
     @Autowired
     UserDAO userDAO;
 
-//    @CrossOrigin(origins = "http://94.127.4.240:4200")	//	SERVER CONFIG
-    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski", "https://alto-ski-cockpit-client-393cf5cd662a.herokuapp.com"})
+
+    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://reciklomatmobapp.suprabit.rs:8081/", "http://localhost:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://skiclub.alto.ski", "https://alto-ski-cockpit-client-393cf5cd662a.herokuapp.com"})
     @GetMapping("/users")
     public List<UserDTO> getUsers(@RequestParam Map<String,String> requestParams) {
 
@@ -83,7 +83,7 @@ public class UsersController {
     @Autowired
     UsersService usersService;
 
-    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://alto-ski-cockpit-client-393cf5cd662a.herokuapp.com"})
+    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://reciklomatmobapp.suprabit.rs:8081/", "http://localhost:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://alto-ski-cockpit-client-393cf5cd662a.herokuapp.com"})
     @GetMapping("/resort_contact")
     public List<UserDTO> getResortContactPerson(@RequestParam Map<String,String> requestParams) {
 
@@ -103,7 +103,7 @@ public class UsersController {
     }
     
     @PostMapping("/users")
-    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://alto-ski-cockpit-client-393cf5cd662a.herokuapp.com"})
+    @CrossOrigin(origins = {"http://94.127.4.240:4200", "http://reciklomatmobapp.suprabit.rs:8081/", "http://localhost:4200", "http://localhost:8081", "https://cockpit.alto.ski", "http://65.21.206.110:8081", "https://skiclubgb-cockpit-client-ec942f8fa647.herokuapp.com", "https://alto-ski-cockpit-client-393cf5cd662a.herokuapp.com"})
     public List<Users> getAllUsers() {
         return usersService.getAllUsers();
     }
